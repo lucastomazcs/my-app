@@ -1,0 +1,143 @@
+/* Reset e estrutura */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.page-container {
+  position: relative;
+  min-height: 90vh;
+  width: 100%;
+  padding: 2rem;
+}
+
+/* Botões de topo */
+.logout-btn, .home-btn {
+  position: fixed;
+  top: 24px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.logout-btn {
+  right: 24px;
+  background-color: #dc3545;
+  color: white;
+}
+
+.home-btn {
+  left: 24px;
+  background-color: #198754;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}
+
+.home-btn:hover {
+  background-color: #157347;
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  color: rgb(0, 40, 0);
+}
+
+/* Formulário */
+.form-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.form-container input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  width: 200px;
+}
+
+.add-btn {
+  background-color: #179d5e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #17a589;
+}
+
+/* Grade de cartões */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.item-card {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-card h3 {
+  margin: 0.5rem 0;
+  color: #212529;
+}
+
+.item-card p {
+  margin: 0.5rem 0;
+  color: #6c757d;
+}
+
+.item-card input {
+  margin: 4px 0;
+  padding: 6px;
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #145c39;
+}

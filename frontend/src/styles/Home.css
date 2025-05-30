@@ -1,0 +1,21 @@
+.home-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  display: inline-block;
+  background-color: #0f3500;
+  color: rgb(162, 255, 162);
+  text-decoration: none;
+  padding: 12px 24px;
+  margin: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background-color:#8dc975;
+  color: #000;
+}
