@@ -1,9 +1,36 @@
-# Node
-node_modules/
-build/
-.env
 
-# Python
-venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.env # O .env na raiz do projeto (com senhas e chaves) NUNCA deve ir para o GitHub
+backend/venv/
+backend/env/
+backend/test.db
+backend/instance/
+
+# Arquivos e pastas do Node.js / Frontend
+frontend/node_modules/
+frontend/build/ # Pasta de build do React
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+frontend/npm-debug.log*
+
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+
+.DS_Store
+Thumbs.db
+*.iml
+.idea/
+.vscode/ # A menos que você queira compartilhar configurações específicas do VSCode
+
+# Outros
+*.log
+*.temp
+*.tmp

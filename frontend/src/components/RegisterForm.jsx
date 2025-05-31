@@ -12,7 +12,7 @@ export default function RegisterForm() {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8000/register', { email, password });
+      await axios.post('/api/register', { email, password });
       alert("Registrado com sucesso!");
       navigate('/'); // volta para tela de login
     } catch (err) {

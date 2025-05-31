@@ -1,14 +1,15 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
-from app import models, schemas, database, crud, auth
-from app.auth import get_current_user
+from . import models, schemas, database, crud, auth
+from .auth import get_current_user
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
-from app.models import InventoryItem
+from .models import InventoryItem
 from fastapi import APIRouter
 
 
@@ -44,22 +45,39 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @app.post("/login", response_model=schemas.Token)
 def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    print(f"Tentando logar usuário: {user.email}") # DEBUG
     user_auth = crud.authenticate_user(db, user.email, user.password)
     if not user_auth:
+        print(f"Falha na autenticação para: {user.email}") # DEBUG
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    access_token = auth.create_access_token(
-        data={"sub": user_auth.email},
-        expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    )
-    refresh_token = auth.create_refresh_token(
-        data={"sub": user_auth.email},
-        expires_delta=timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
-    )
+    print(f"Usuário autenticado: {user_auth.email}") # DEBUG
+    try:
+        access_token = auth.create_access_token(
+            data={"sub": user_auth.email},
+            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        )
+        print("Access token criado") # DEBUG
+        refresh_token = auth.create_refresh_token(
+            data={"sub": user_auth.email},
+            expires_delta=timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+        )
+        print("Refresh token criado") # DEBUG
+    except Exception as e:
+        print(f"LOGIN DEBUG: ERRO DETALHADO ao criar tokens: {e}") # Este print é crucial
+        print(f"LOGIN DEBUG: Tipo do erro: {type(e)}")
+        import traceback
+        traceback.print_exc() # Imprime o traceback completo
+        raise HTTPException(status_code=500, detail="Erro ao gerar tokens")
 
-    # Salvar tokens no banco
-    crud.save_token(db, access_token, "access", user_auth.id)
-    crud.save_token(db, refresh_token, "refresh", user_auth.id)
+    try:
+        crud.save_token(db, access_token, "access", user_auth.id)
+        print("Access token salvo no DB") # DEBUG
+        crud.save_token(db, refresh_token, "refresh", user_auth.id)
+        print("Refresh token salvo no DB") # DEBUG
+    except Exception as e:
+        print(f"ERRO ao salvar tokens no DB: {e}") # DEBUG
+        raise HTTPException(status_code=500, detail="Erro ao salvar tokens")
 
     return {
         "access_token": access_token,

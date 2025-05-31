@@ -14,9 +14,17 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 def authenticate_user(db: Session, email: str, password: str):
+    print(f"CRUD: Buscando usuário {email}") # DEBUG
     user = get_user_by_email(db, email)
-    if user and auth.verify_password(password, user.hashed_password):
-        return user
+    if user:
+        print(f"CRUD: Usuário {email} encontrado. Verificando senha.") # DEBUG
+        if auth.verify_password(password, user.hashed_password):
+            print(f"CRUD: Senha verificada para {email}") # DEBUG
+            return user
+        else:
+            print(f"CRUD: Senha incorreta para {email}") # DEBUG
+    else:
+        print(f"CRUD: Usuário {email} não encontrado") # DEBUG
     return None
 
 def save_token(db: Session, token: str, token_type: str, user_id: int):

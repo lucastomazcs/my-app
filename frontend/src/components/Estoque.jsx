@@ -24,7 +24,7 @@ export default function Estoque() {
   const fetchItems = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/inventory', {
+      const response = await axios.get('/api/inventory', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(response.data);
@@ -42,7 +42,7 @@ export default function Estoque() {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:8000/inventory',
+        '/api/inventory',
         { name, quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -57,7 +57,7 @@ export default function Estoque() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8000/inventory/${id}`, {
+      await axios.delete(`/api/inventory/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchItems();
@@ -76,7 +76,7 @@ export default function Estoque() {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:8000/inventory/${editItemId}`,
+        `/api/inventory/${editItemId}`,
         { name: editName, quantity: editQuantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
